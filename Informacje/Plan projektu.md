@@ -39,6 +39,7 @@
 
 ## Łukasz:
 - Projekt bazy danych.
+- Ogarnąć jak ładnie zrobić wpisywanie listy składników.
 ## Daniel:
 - Ogarnąć autoryzację (pkt.1).
 
