@@ -64,3 +64,9 @@ serwisu.
 8. __(1 pkt)__ Użytkownik powinien móc wyświetlać faktyczny stan realizowania budżety według kategorii.
 9. __(1 pkt)__ Użytkownik ma możliwość udostępniania swoich budżetów innym użytkownikom. Użytkownik, który otrzymał dostęp do budżetu może go dowolnie modyfikować, ale nie może usunąć. 
 10. __(1 pkt -<?> Styl)__ Aplikacja powinna mieć estetyczny wygląd.
+
+<!-- <style>
+body{
+    font-family: consolas;
+}
+</style> -->
