@@ -22,7 +22,7 @@
 7. __(1 pkt -<||> Głosowanie na przepisach)__ Zalogowani użytkownicy mogą głosować na przepis (na “+” i “-”). Jeden zalogowany użytkownik może tylko raz zagłosować na wybrany przepis (na + lub na -).
     >> Nic nie pisze o zmienianiu głosów.
     > Problemem tutaj jest zaimplementowanie drugiej części punktu, czyli tego by użytkownicy głosowali tylko raz na post. Trzeba by przechowywać tablicę postów upvote'owanych przez użytkownika najpewniej w strukturze [ID, UserID, Rating].
-    > propozycja oddzielnej tabeli z podwójnym kluczem głównym UserID + RecipeID i Rating. Podwójny klucz główny wykluczy możliwość głosowania dwa razy na ten sam przepis (tylko jedna unikalna kombinacja ID użytkownika i ID przepisu może istnieć w tabeli)
+    > Propozycja oddzielnej tabeli z podwójnym kluczem głównym UserID + RecipeID i Rating. Podwójny klucz główny wykluczy możliwość głosowania dwa razy na ten sam przepis (tylko jedna unikalna kombinacja ID użytkownika i ID przepisu może istnieć w tabeli).
 - 1. __(0,5 pkt -<|> Ranking)__ Na stronie głównej aplikacji powinny być prezentowane 10 najlepiej ocenianych przepisów.
     >Po zaimplementowaniu głównej części punktu to już jest łatwizną.
 8. __(1,5 pkt -<||> Przechowywanie plików użytkowników)__ Przepis może zawierać galerię zdjęć podanych jako linki do grafik z zewnętrznych serwisów lub zdjęć przesłanych bezpośrednio z komputera i przechowywanych w aplikacji.
