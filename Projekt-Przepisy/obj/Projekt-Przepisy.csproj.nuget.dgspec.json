@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\USB SZTYK BEKAP 11-03-2021\\Semestr4\\.NET\\WebApp-Projekt\\Projekt-Przepisy\\Projekt-Przepisy.csproj": {}
+    "D:\\zajęcia NET\\webapp-projekt\\Projekt-Przepisy\\Projekt-Przepisy.csproj": {}
   },
   "projects": {
-    "C:\\USB SZTYK BEKAP 11-03-2021\\Semestr4\\.NET\\WebApp-Projekt\\Projekt-Przepisy\\Projekt-Przepisy.csproj": {
+    "D:\\zajęcia NET\\webapp-projekt\\Projekt-Przepisy\\Projekt-Przepisy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\USB SZTYK BEKAP 11-03-2021\\Semestr4\\.NET\\WebApp-Projekt\\Projekt-Przepisy\\Projekt-Przepisy.csproj",
+        "projectUniqueName": "D:\\zajęcia NET\\webapp-projekt\\Projekt-Przepisy\\Projekt-Przepisy.csproj",
         "projectName": "Projekt-Przepisy",
-        "projectPath": "C:\\USB SZTYK BEKAP 11-03-2021\\Semestr4\\.NET\\WebApp-Projekt\\Projekt-Przepisy\\Projekt-Przepisy.csproj",
-        "packagesPath": "C:\\Users\\progr\\.nuget\\packages\\",
-        "outputPath": "C:\\USB SZTYK BEKAP 11-03-2021\\Semestr4\\.NET\\WebApp-Projekt\\Projekt-Przepisy\\obj\\",
+        "projectPath": "D:\\zajęcia NET\\webapp-projekt\\Projekt-Przepisy\\Projekt-Przepisy.csproj",
+        "packagesPath": "C:\\Users\\Diss_ConnecT\\.nuget\\packages\\",
+        "outputPath": "D:\\zajęcia NET\\webapp-projekt\\Projekt-Przepisy\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\progr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Diss_ConnecT\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -79,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     }
