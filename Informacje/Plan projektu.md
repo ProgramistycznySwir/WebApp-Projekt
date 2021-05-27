@@ -37,6 +37,10 @@
     - Czy można to przechowywać w dużej tabelii.
 - 8pkt - Jak przechowywać te pliki?
 - Co jeśli ktoś robi sam design bazy?
+- Jak nadpisać kontekst User tak bo, przydałoby się to do:
+    - zmniejszenia UserName do bardziej sensownej liczby 32 znaków,
+    - dodania do UserName flagi UNIQUE,
+    - skrócenia UserID do bardziej sensownych długości (450 znaków to troche overkill)
 
 ## Łukasz:
 - Projekt bazy danych.
