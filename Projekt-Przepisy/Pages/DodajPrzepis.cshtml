@@ -2,3 +2,24 @@
 @model Projekt_Przepisy.Pages.DodajPrzepisModel
 @{
 }
+<form>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Nazwa dania</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Składniki</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Przepis</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlFile1">Zdjęcie potrawy (opcjonalne)</label>
+        <input type="file" accept=".png,.jpg" class="form-control-file" id="exampleFormControlFile1">
+    </div>
+</form>
+
+<input class="btn btn-primary" type="submit" value="Dodaj Przepis">

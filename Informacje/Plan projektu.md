@@ -33,10 +33,18 @@
 
 ## Pytania do Pani X:
 - 6pkt - Jak do końca mają działać kategorie?
+    - Mamy pomysł by przechowywać je 2 odrębnych tabelach Kategorie i Przepisy_Kategorie
 - 7pkt - Jak przechowywać czy ktoś już zagłosował na daną kategorię?
     - Czy można to przechowywać w dużej tabelii.
-- 8pkt - Jak przechowywać te pliki?
++ 8pkt - Jak przechowywać te pliki?
+>A: W bazie danych zapisać referencję do pliku zwyczajnie zapisanego za pomocą System.IO.
 - Co jeśli ktoś robi sam design bazy?
+- Jak nadpisać kontekst User tak bo, przydałoby się to do:
+    - zmniejszenia UserName do bardziej sensownej liczby 32 znaków,
+    - dodania do UserName flagi UNIQUE,
+    - skrócenia UserID do bardziej sensownych długości (450 znaków to troche overkill)
+>A: Własny profil
+
 
 - Co do bazy danych, czy można w tabeli AspNetUsers zmniejszyć rozmiar id do bardziej sensownych rozmiarów załóżmy 64.
 
@@ -47,9 +55,9 @@
 - Ogarnąć autoryzację (pkt.1).
 
 
-<style>
+<!-- <style>
 body{
     font-family: Comic Sans MS, Comic Sans, cursive;
     /* font-family: Impact, fantasy; */
 }
-</style>
+</style> -->
