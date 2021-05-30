@@ -59,5 +59,9 @@ namespace Projekt_Przepisy.Models
             PublicationDate = DateTime.Now;
             SummaryRating = 0;
         }
+
+        public override string ToString()
+            => $"(RecipeID: {ID},  PublicationDate: {PublicationDate},  RecipeName: {RecipeName}, " +
+            $" UserID: {UserID},  SummaryRating: {SummaryRating})";
     }
 }
