@@ -12,7 +12,7 @@ namespace Projekt_Przepisy.Models
     public class RecipeRating
     {
         [KeyAttribute]
-        public uint RecipeID { get; set; }
+        public int RecipeID { get; set; }
         [KeyAttribute]
         [MaxLength(450)]
         public string UserID { get; set; }

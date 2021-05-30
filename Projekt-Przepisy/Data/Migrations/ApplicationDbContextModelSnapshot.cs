@@ -235,23 +235,27 @@ namespace Projekt_Przepisy.Data.Migrations
 
             modelBuilder.Entity("Projekt_Przepisy.Models.Recipe", b =>
                 {
-                    b.Property<long>("ID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ImageLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IngredientsList")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InstructionsText")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("PublicationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("RecipeName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
@@ -269,14 +273,14 @@ namespace Projekt_Przepisy.Data.Migrations
 
             modelBuilder.Entity("Projekt_Przepisy.Models.RecipeAssignedCategory", b =>
                 {
-                    b.Property<long>("RecipeID")
-                        .HasColumnType("bigint");
+                    b.Property<int>("RecipeID")
+                        .HasColumnType("int");
 
                     b.Property<byte>("ID")
                         .HasColumnType("tinyint");
 
-                    b.Property<long>("CategoryID")
-                        .HasColumnType("bigint");
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
 
                     b.HasKey("RecipeID", "ID");
 
@@ -301,8 +305,8 @@ namespace Projekt_Przepisy.Data.Migrations
 
             modelBuilder.Entity("Projekt_Przepisy.Models.RecipeRating", b =>
                 {
-                    b.Property<long>("RecipeID")
-                        .HasColumnType("bigint");
+                    b.Property<int>("RecipeID")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(450)")

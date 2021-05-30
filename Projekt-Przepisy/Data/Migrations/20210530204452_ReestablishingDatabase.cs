@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Projekt_Przepisy.Data.Migrations
 {
-    public partial class EstablishingDatabase : Migration
+    public partial class ReestablishingDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,7 +36,7 @@ namespace Projekt_Przepisy.Data.Migrations
                 name: "Ratings",
                 columns: table => new
                 {
-                    RecipeID = table.Column<long>(nullable: false),
+                    RecipeID = table.Column<int>(nullable: false),
                     UserID = table.Column<string>(maxLength: 450, nullable: false),
                     IsPositive = table.Column<bool>(nullable: false)
                 },
@@ -49,9 +49,9 @@ namespace Projekt_Przepisy.Data.Migrations
                 name: "RecipeAssignedCategories",
                 columns: table => new
                 {
-                    RecipeID = table.Column<long>(nullable: false),
+                    RecipeID = table.Column<int>(nullable: false),
                     ID = table.Column<byte>(nullable: false),
-                    CategoryID = table.Column<long>(nullable: false)
+                    CategoryID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,11 +62,12 @@ namespace Projekt_Przepisy.Data.Migrations
                 name: "Recipes",
                 columns: table => new
                 {
-                    ID = table.Column<long>(nullable: false),
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<string>(maxLength: 450, nullable: true),
-                    RecipeName = table.Column<string>(maxLength: 64, nullable: true),
-                    IngredientsList = table.Column<string>(nullable: true),
-                    InstructionsText = table.Column<string>(nullable: true),
+                    RecipeName = table.Column<string>(maxLength: 64, nullable: false),
+                    IngredientsList = table.Column<string>(nullable: false),
+                    InstructionsText = table.Column<string>(nullable: false),
                     ImageLink = table.Column<string>(nullable: true),
                     PublicationDate = table.Column<DateTime>(nullable: false),
                     SummaryRating = table.Column<int>(nullable: false)

@@ -12,7 +12,7 @@ namespace Projekt_Przepisy.Models
     public class FavouriteRecipe
     {
         [Key]
-        public ushort RecipeID { get; set; }
+        public int RecipeID { get; set; }
 
         // <FK>
         /// <summary>

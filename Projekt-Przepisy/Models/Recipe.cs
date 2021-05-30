@@ -13,7 +13,7 @@ namespace Projekt_Przepisy.Models
     {
         [Key]
         //[Microsoft.EntityFrameworkCore.Metadata.ValueGenerated.]
-        public uint ID { get; set; }
+        public int ID { get; set; }
         
         // <FK>
         [MaxLength(450)]
@@ -47,7 +47,7 @@ namespace Projekt_Przepisy.Models
         public Recipe(Data.ApplicationDbContext applicationDb, string userID, string recipeName,
             string ingredientsList, string instructionsText, string imageLink= null)
         {
-            ID = (uint)applicationDb.Recipes.LongCount();
+            //ID = applicationDb.Recipes.Count();
 
             //Recipe();
             UserID = userID;
