@@ -26,5 +26,9 @@ namespace Projekt_Przepisy.Models
         public string ImageLink { get; set; }
         public DateTime PublicationDate { get; set; }
         public int SummaryRating { get; set; }
+
+        //TODO: Link everything with relations using FluentAPI.
+        //       Useful link: https://www.tutorialspoint.com/entity_framework/entity_framework_fluent_api.htm
+        // public virtual ICollection<RecipeAssignedCategory> AssignedCategories { get; set; }
     }
 }

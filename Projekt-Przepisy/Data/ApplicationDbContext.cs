@@ -30,7 +30,13 @@ namespace Projekt_Przepisy.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<FavouriteRecipe>().HasKey("RecipeID", "UserID");
+            //builder.Entity<FavouriteRecipe>().HasKey("RecipeID", "UserID");
+            builder.Entity<FavouriteRecipe>().HasKey(p => new { p.RecipeID, p.UserID });
+            //builder.Entity<RecipeAssignedCategory>().HasKey("RecipeID", "ID");
+            builder.Entity<RecipeAssignedCategory>().HasKey(p => new { p.RecipeID, p.ID });
+            //builder.Entity<RecipeRating>().HasKey("RecipeID", "UserID");
+            builder.Entity<RecipeRating>().HasKey(p => new { p.RecipeID, p.UserID });
+
         }
     }
 }
