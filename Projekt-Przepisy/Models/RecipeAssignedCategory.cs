@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,11 +11,13 @@ namespace Projekt_Przepisy.Models
     /// </summary>
     public class RecipeAssignedCategory
     {
-        //TODO: Place PK here!
-
+        [KeyAttribute]
+        public uint RecipeID { get; set; }
         // AssignedCategoryID
+        [KeyAttribute]
         public byte ID { get; set; }
+
         // <FK>
-        public int CategoryID { get; set; }
+        public uint CategoryID { get; set; }
     }
 }

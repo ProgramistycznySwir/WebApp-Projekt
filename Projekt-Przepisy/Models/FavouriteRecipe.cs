@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,8 +11,15 @@ namespace Projekt_Przepisy.Models
     /// </summary>
     public class FavouriteRecipe
     {
-        //TODO: Place for a PK.
-        
-        //TODO: Place here UserID - when i come to know what type it is.
+        [KeyAttribute]
+        public ushort RecipeID { get; set; }
+
+        // <FK>
+        /// <summary>
+        /// User that like this recipe.
+        /// </summary>
+        [KeyAttribute]
+        [MaxLength(450)]
+        public string UserID { get; set; }
     }
 }

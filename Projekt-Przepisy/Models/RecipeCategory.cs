@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,8 +13,10 @@ namespace Projekt_Przepisy.Models
     {
         // <PK>
         // CategoryID
+        [KeyAttribute]
         public int ID { get; set; }
         // CategoryName
+        [MaxLength(64)]
         public string Name { get; set; }
     }
 }

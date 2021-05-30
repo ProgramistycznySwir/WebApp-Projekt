@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +11,11 @@ namespace Projekt_Przepisy.Models
     /// </summary>
     public class RecipeRating
     {
-        //TODO: Place PK here!
+        [KeyAttribute]
+        public uint RecipeID { get; set; }
+        [KeyAttribute]
+        [MaxLength(450)]
+        public string UserID { get; set; }
 
         // RatingIsPositive
         public bool IsPositive { get; set; }
