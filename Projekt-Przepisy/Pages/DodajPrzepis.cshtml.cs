@@ -82,7 +82,7 @@ namespace Projekt_Przepisy.Pages
 
             //exampleFormControlFile1
 
-            return Page();
+            return RedirectToPage("/Profil");
         }
     }
 }
