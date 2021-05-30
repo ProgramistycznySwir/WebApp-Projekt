@@ -11,7 +11,8 @@ namespace Projekt_Przepisy.Models
     /// </summary>
     public class Recipe
     {
-        [KeyAttribute]
+        [Key]
+        //[Microsoft.EntityFrameworkCore.Metadata.ValueGenerated.]
         public uint ID { get; set; }
         
         // <FK>
@@ -19,10 +20,13 @@ namespace Projekt_Przepisy.Models
         public string UserID { get; set; }
 
         [MaxLength(64, ErrorMessage = "Recipe name cannot be longer than 64 characters.")]
+        [Required]
         public string RecipeName { get; set; }
+        [Required]
         public string IngredientsList { get; set; }
+        [Required]
         public string InstructionsText { get; set; }
-        [UrlAttribute]
+        [Url]
         public string ImageLink { get; set; }
         public DateTime PublicationDate { get; set; }
         public int SummaryRating { get; set; }
@@ -30,5 +34,30 @@ namespace Projekt_Przepisy.Models
         //TODO: Link everything with relations using FluentAPI.
         //       Useful link: https://www.tutorialspoint.com/entity_framework/entity_framework_fluent_api.htm
         // public virtual ICollection<RecipeAssignedCategory> AssignedCategories { get; set; }
+
+
+        //public Recipe(Data.ApplicationDbContext applicationDb)
+        //{
+        //    ID = (uint)applicationDb.Recipes.LongCount();
+        //    ImageLink = null;
+        //    PublicationDate = DateTime.Now;
+        //    SummaryRating = 0;
+        //}
+
+        public Recipe(Data.ApplicationDbContext applicationDb, string userID, string recipeName,
+            string ingredientsList, string instructionsText, string imageLink= null)
+        {
+            ID = (uint)applicationDb.Recipes.LongCount();
+
+            //Recipe();
+            UserID = userID;
+            RecipeName = recipeName;
+            IngredientsList = ingredientsList;
+            InstructionsText = instructionsText;
+            ImageLink = imageLink;
+
+            PublicationDate = DateTime.Now;
+            SummaryRating = 0;
+        }
     }
 }

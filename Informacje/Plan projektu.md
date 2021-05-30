@@ -39,7 +39,7 @@
 + 8pkt - Jak przechowywać te pliki?
 >A: W bazie danych zapisać referencję do pliku zwyczajnie zapisanego za pomocą System.IO.
 - Co jeśli ktoś robi sam design bazy?
-- Jak nadpisać kontekst User tak bo, przydałoby się to do:
++ Jak nadpisać kontekst User tak bo, przydałoby się to do:
     - zmniejszenia UserName do bardziej sensownej liczby 32 znaków,
     - dodania do UserName flagi UNIQUE,
     - skrócenia UserID do bardziej sensownych długości (450 znaków to troche overkill)

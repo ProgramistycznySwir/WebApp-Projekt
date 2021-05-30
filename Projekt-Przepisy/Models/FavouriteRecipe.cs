@@ -11,14 +11,14 @@ namespace Projekt_Przepisy.Models
     /// </summary>
     public class FavouriteRecipe
     {
-        [KeyAttribute]
+        [Key]
         public ushort RecipeID { get; set; }
 
         // <FK>
         /// <summary>
         /// User that like this recipe.
         /// </summary>
-        [KeyAttribute]
+        [Key]
         [MaxLength(450)]
         public string UserID { get; set; }
     }

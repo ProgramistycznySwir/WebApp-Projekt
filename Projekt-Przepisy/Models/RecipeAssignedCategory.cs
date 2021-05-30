@@ -11,10 +11,10 @@ namespace Projekt_Przepisy.Models
     /// </summary>
     public class RecipeAssignedCategory
     {
-        [KeyAttribute]
+        [Key]
         public uint RecipeID { get; set; }
         // AssignedCategoryID
-        [KeyAttribute]
+        [Key]
         public byte ID { get; set; }
 
         // <FK>
