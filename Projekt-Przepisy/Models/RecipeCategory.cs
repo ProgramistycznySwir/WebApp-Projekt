@@ -10,5 +10,10 @@ namespace Projekt_Przepisy.Models
     /// </summary>
     public class RecipeCategory
     {
+        // <PK>
+        // CategoryID
+        public int ID { get; set; }
+        // CategoryName
+        public string Name { get; set; }
     }
 }

@@ -10,5 +10,11 @@ namespace Projekt_Przepisy.Models
     /// </summary>
     public class RecipeAssignedCategory
     {
+        //TODO: Place PK here!
+
+        // AssignedCategoryID
+        public byte ID { get; set; }
+        // <FK>
+        public int CategoryID { get; set; }
     }
 }

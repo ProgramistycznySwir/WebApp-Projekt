@@ -10,5 +10,8 @@ namespace Projekt_Przepisy.Models
     /// </summary>
     public class FavouriteRecipe
     {
+        //TODO: Place for a PK.
+        
+        //TODO: Place here UserID - when i come to know what type it is.
     }
 }

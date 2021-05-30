@@ -10,6 +10,9 @@ namespace Projekt_Przepisy.Models
     /// </summary>
     public class RecipeRating
     {
-        
+        //TODO: Place PK here!
+
+        // RatingIsPositive
+        public bool IsPositive { get; set; }
     }
 }
