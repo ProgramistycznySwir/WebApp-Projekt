@@ -1,7 +1,7 @@
 # Plan projektu
 
 1. __(1 pkt -<|> Autoryzacja)__ Profil użytkownika :
-- jako Niezalogowany Użytkownik mam możliwość rejestracji w serwisie
+- [x] jako Niezalogowany Użytkownik mam możliwość rejestracji w serwisie
 - jako Niezalogowany Użytkownik mam możliwość zresetowania hasła do własnego profilu; procedura odzyskiwania hasła powinna być bezpieczna (np. przez wysłanie linku aktywacyjnego na adres email)
 - jako Zalogowany Użytkownik mogę edytować moje dane
 - jako Niezalogowany Użytkownik mogę się zalogować i wylogować z serwisu
@@ -39,12 +39,14 @@
 + 8pkt - Jak przechowywać te pliki?
 >A: W bazie danych zapisać referencję do pliku zwyczajnie zapisanego za pomocą System.IO.
 - Co jeśli ktoś robi sam design bazy?
-- Jak nadpisać kontekst User tak bo, przydałoby się to do:
++ Jak nadpisać kontekst User tak bo, przydałoby się to do:
     - zmniejszenia UserName do bardziej sensownej liczby 32 znaków,
     - dodania do UserName flagi UNIQUE,
     - skrócenia UserID do bardziej sensownych długości (450 znaków to troche overkill)
 >A: Własny profil
 
+
+- Co do bazy danych, czy można w tabeli AspNetUsers zmniejszyć rozmiar id do bardziej sensownych rozmiarów załóżmy 64.
 
 ## Łukasz:
 - Projekt bazy danych.

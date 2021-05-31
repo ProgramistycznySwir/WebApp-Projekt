@@ -5,6 +5,32 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Witaj na Przepisach Babci Jadzi</h1>
+    @*<div class="form-outline">*@
+    <form method="post">
+        @*<input asp-for="searchedPhrase" type="search" id="form1" class="form-control" placeholder="Wyszukaj przepis..."
+            aria-label="Search" />*@
+        <input asp-for="searchedPhrase" type="search" id="form1" class="form-control" placeholder="Wyszukaj przepis..."
+               aria-label="Search" />
+    </form>
+    @* TODO: Ulepszyć wyszukiwanie, obecnie jest bardzo podstawowe i sprawdza jedynie czy nazwa przepisu zawiera szukaną frazę *@
+    @{
+        if (Model.searchResults is null)
+        {
+            if (string.IsNullOrWhiteSpace(Model.searchedPhrase) is false)
+            {
+                <span>Nie znaleziono żadnych przepisów zawierających frazę "@Model.searchedPhrase"</span>
+            }
+        }
+        else
+        {
+            foreach (var recipe in Model.searchResults)
+            {
+                @* TODO: zastąpić pełnoprawną prezentacją danych. *@
+                <div>@recipe.ToString()<br /></div>
+            }
+        }
+    }
 </div>
+
+

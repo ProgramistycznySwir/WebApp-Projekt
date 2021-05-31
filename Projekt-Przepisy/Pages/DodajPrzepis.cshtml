@@ -2,3 +2,36 @@
 @model Projekt_Przepisy.Pages.DodajPrzepisModel
 @{
 }
+<h1>
+    Uzupełnij by stworzyć nowy przepis:
+</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="recipeName"></label>
+        @*<textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>*@
+        <textarea asp-for="recipeName" class="form-control" rows="1" placeholder="Wpisz tu nazwę przepisu..."></textarea>
+        <span asp-validation-for="recipeName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ingredientsList"></label>
+        <textarea asp-for="ingredientsList" class="form-control" rows="5" placeholder="Wpisz tu listę składników..."></textarea>
+        <span asp-validation-for="ingredientsList" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="instructionsText"></label>
+        <textarea asp-for="instructionsText" class="form-control" rows="10" placeholder="Wpisz tu sposób przygotowania przepisu..."></textarea>
+        <span asp-validation-for="instructionsText" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlFile1">Zdjęcie potrawy (opcjonalne)</label>
+        <input type="file" accept=".png,.jpg" class="form-control-file" id="exampleFormControlFile1">
+    </div>
+    @* <LaBeL asp-for="input"></LaBeL><BR />
+        <iNPuT asp-for="input" /><br />
+        <spAN asp-validation-for="input" class="text-danger"></spAN><bR />
+    *@
+
+    <button class="btn btn-primary" type="submit">Dodaj Przepis</button>
+</form>

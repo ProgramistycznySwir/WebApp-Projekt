@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20210530121333_EstablishingDatabase.cs" />
+    <Compile Remove="Data\Migrations\20210530121333_EstablishingDatabase.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210530203054_FixingDatabaseTypeDefinitions.cs" />
+    <Compile Remove="Data\Migrations\20210530203054_FixingDatabaseTypeDefinitions.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.12" />

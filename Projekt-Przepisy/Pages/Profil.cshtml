@@ -2,4 +2,32 @@
 @model Projekt_Przepisy.Pages.ProfilModel
 @{
 }
-<button type="button" onclick="location.href = 'DodajPrzepis';" class="btn btn-primary">Dodaj Przepis</button>
+<button type="button" onclick="location.href = '/DodajPrzepis';" class="btn btn-primary">Dodaj nowy przepis</button>
+
+<div>
+    <h3>
+        Lista twoich przepisów:
+    </h3>
+    @* I tutaj pobierana jest z modelu lista przepisów i wyświetlana. *@
+    @{
+        if (Model.userRecipes is null)
+        {
+            <span>Tutaj nie ma żadnych przepisów... Jeszcze!</span>
+        }
+        else
+        {
+            foreach (var recipe in Model.userRecipes)
+            {
+                <form asp-page-handler="deleteEntry" method="post">
+                    @*<button class="btn btn-light btn-sm" name="value" value=@entry.date.Ticks.ToString()>delete</button>*@
+                    @*<button class="btn btn-light btn-sm" value="gah">delete</button>*@
+                    @*<input type="submit" name=@entry.date.Ticks.ToString() value="delete" />*@
+                    @* TODO: zastąpić pełnoprawną prezentacją danych (pomocne może być tr, th i td).
+                        TO_FRONT: Te tutaj komentarze możesz powyrzucać, na razie nie wiem czy będę coś z nimi robił.*@
+                    @recipe.ToString()<br />
+                    @*@Html.*@
+                </form>
+            }
+        }
+    }
+</div>
