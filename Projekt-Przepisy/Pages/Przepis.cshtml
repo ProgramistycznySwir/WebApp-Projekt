@@ -1,12 +1,12 @@
 ﻿@page
 @model Projekt_Przepisy.Pages.PrzepisModel
-@{int recipeID = Int16.Parse(Request.Query["ID"]);
-}
-<body>
-    <div>
-        <h3>
-            <p>@recipeID</p>
+    @{
+        {
+                <h3>
+                @Model.przepis.RecipeName.ToString()<br />
+                </h3>
 
-        </h3>
-    </div>
-</body>
+                @Model.przepis.IngredientsList.ToString()<br />
+                @Model.przepis.InstructionsText.ToString()<br />
+        } 
+    }
