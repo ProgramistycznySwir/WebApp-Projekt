@@ -13,10 +13,14 @@ namespace Projekt_Przepisy.Pages
 {
     public class PrzepisModel : PageModel
     {
+
        
         public void OnGet()
         {
-            int recipeID = Int16.Parse(Request.Query["ID"]);
+
+            
+
+
 
 
         }
