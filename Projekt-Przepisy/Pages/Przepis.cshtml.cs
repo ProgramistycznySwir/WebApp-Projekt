@@ -31,12 +31,21 @@ namespace Projekt_Przepisy.Pages
         }
 
        
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            int recipeID = Int16.Parse(Request.Query["ID"]); 
+            int recipeID = Int32.Parse(Request.Query["ID"]); 
+            try
+            {
+                przepis = _context.Recipes
+                   .Where(recipe => recipe.ID == recipeID).First();
+            }
+            catch(Exception e)
+            {
+                return RedirectToPage($"/Przepis_NotFound", new { id = recipeID });
+                //return RedirectToPage($"/Przepis_NotFound");
+            }
 
-            przepis = _context.Recipes
-               .Where(recipe => recipe.ID == recipeID).First();
+            return Page();
         }
     }
 }
