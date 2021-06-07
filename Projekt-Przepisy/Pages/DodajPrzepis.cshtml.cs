@@ -25,8 +25,7 @@ namespace Projekt_Przepisy.Pages
         [BindProperty]
         [Display(Name = "Sk³adniki")]
         [Required(ErrorMessage = "Przepis musi mieæ listê sk³adników!")]
-        //TODO: Ustawiæ tu jakiœ limit bo to troche nieodpowiedzialne zostawiaæ to w takim stanie :/
-        //[StringLength(64, MinimumLength = 6, ErrorMessage = "Nazwa przepisu musi mieæ d³ugoœæ od 6 do 64.")]
+        [StringLength(1024, MinimumLength = 6, ErrorMessage = "Nazwa przepisu musi mieæ d³ugoœæ od 6 do 1000 znaków.")]
         public string ingredientsList { get; set; }
         [BindProperty]
         [Display(Name = "Przepis")]

@@ -1,0 +1,12 @@
+﻿@page
+@model Projekt_Przepisy.Pages.PrzepisModel
+    @{
+        {
+                <h3>
+                @Model.przepis.RecipeName.ToString()<br />
+                </h3>
+
+                @Model.przepis.IngredientsList.ToString()<br />
+                @Model.przepis.InstructionsText.ToString()<br />
+        } 
+    }
