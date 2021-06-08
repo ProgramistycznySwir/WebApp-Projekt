@@ -28,6 +28,8 @@ namespace Projekt_Przepisy.Pages
         public string PlusVoteButtonClass => positiveVote is true ? "btn-success" : "btn-secondary";
         public string MinusVoteButtonClass => positiveVote is false ? "btn-danger" : "btn-secondary";
 
+        public bool isAddedToFavourites;
+
 
         public PrzepisModel(ILogger<IndexModel> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
@@ -53,18 +55,29 @@ namespace Projekt_Przepisy.Pages
 
         public IActionResult OnPostVote(string value, string recipeID, string voteIsPositive)
         {
+            // Retrieving pseudo-session data:
+            string currentUserID = _userManager.GetUserId(this.User);
+            // TODO: Zaimplementowaæ bardziej przyjazn¹ u¿ytkownikowi implementacjê przekierowywania do zalogowania.
+            if (currentUserID is null)
+                return RedirectToPage("/Index");
+                //return RedirectToPage("/Identity/Account/Login");
+
             var recipeID_parsed = int.Parse(recipeID);
             przepis = _context.Recipes.Find(recipeID_parsed);
 
-            bool temp;
-            positiveVote = bool.TryParse(voteIsPositive, out temp) ? temp : null;
+
+            //bool temp;
+            //positiveVote = bool.TryParse(voteIsPositive, out temp) ? temp : null;
+            positiveVote = _context.Ratings.Find(przepis.ID, currentUserID)?.IsPositive;
 
             bool? voteIsPositive_parsed = value is "+" ? true : value is "-" ? false : null;
-            if (voteIsPositive_parsed is null)
-                return Page();
+            
+            if (voteIsPositive_parsed.HasValue)
+                Vote(currentUserID, voteIsPositive_parsed);
 
-            if (Vote(voteIsPositive_parsed))
-                RedirectToPage("/Login");
+            // Setting values for rendering:
+            positiveVote = _context.Ratings.Find(przepis.ID, currentUserID)?.IsPositive;
+            isAddedToFavourites = _context.Favourites.Find(przepis.ID, currentUserID) is not null;
 
             return Page();
         }
@@ -74,12 +87,8 @@ namespace Projekt_Przepisy.Pages
         /// </summary>
         /// <param name="voteIsPositive"></param>
         /// <returns>True on success</returns>
-        public bool Vote(bool? voteIsPositive)
+        public void Vote(string currentUserID, bool? voteIsPositive)
         {
-            string currentUserID = _userManager.GetUserId(this.User);
-            if (currentUserID is null)
-                return false;
-
             // There is no vote yet.
             if (positiveVote is null)
             {
@@ -107,10 +116,33 @@ namespace Projekt_Przepisy.Pages
             // Update recipe score.
             _context.Recipes.Update(przepis);
             _context.SaveChanges();
+        }
 
-            // Reasign propper value for rendering.
+        public IActionResult OnPostAddToFavourites(string value, string recipeID)
+        {
+            // Retrieving pseudo-session data:
+            string currentUserID = _userManager.GetUserId(this.User);
+            // TODO: Zaimplementowaæ bardziej przyjazn¹ u¿ytkownikowi implementacjê przekierowywania do zalogowania.
+            if (currentUserID is null)
+                return RedirectToPage("/Index");
+                //return RedirectToPage("/Identity/Account/Login");
+
+            var recipeID_parsed = int.Parse(recipeID);
+            przepis = _context.Recipes.Find(recipeID_parsed);
+
+
+            var favourite = _context.Favourites.Find(przepis.ID, currentUserID);
+            if (favourite is null)
+                _context.Favourites.Add(new(przepis.ID, currentUserID));
+            else
+                _context.Favourites.Remove(favourite);
+            _context.SaveChanges();
+
+
+            // Setting values for rendering:
             positiveVote = _context.Ratings.Find(przepis.ID, currentUserID)?.IsPositive;
-            return true;
+            isAddedToFavourites = _context.Favourites.Find(przepis.ID, currentUserID) is not null;
+            return Page();
         }
     }
 }

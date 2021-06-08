@@ -10,7 +10,8 @@ Dzisiaj mam zamiar zająć się systemem oceniania przepisów.
 
 
 2. [>] __(1 pkt -<|> Tworzenie i edytowanie przepisów)__
-3. [>] __(1 pkt -<|> Lista ulubionych przepisów)__
+3. [x] __(1 pkt -<|> Lista ulubionych przepisów)__
+    > Zaimplementowałem dodawanie przepisów do ulubionych.
 4. [>] __(1 pkt -<|> Wyszukiwanie przepisów)__
 5. [ ] __(1 pkt -<|> Przeglądanie profilów innych użytkowników)__
 6. [>] __(2 pkt -<|> Kategorie przepisów)__

@@ -31,6 +31,8 @@ namespace Projekt_Przepisy.Models
         public DateTime PublicationDate { get; set; }
         public int SummaryRating { get; set; }
 
+        public string LinkToPage => $"Przepis?id={ID}";
+
         //TODO: Link everything with relations using FluentAPI.
         //       Useful link: https://www.tutorialspoint.com/entity_framework/entity_framework_fluent_api.htm
         // public virtual ICollection<RecipeAssignedCategory> AssignedCategories { get; set; }
@@ -59,6 +61,11 @@ namespace Projekt_Przepisy.Models
             PublicationDate = DateTime.Now;
             SummaryRating = 0;
         }
+
+        //public bool IsFavourite(Data.ApplicationDbContext context, string userID)
+        //{
+        //    return 
+        //}
 
         public override string ToString()
             => $"(RecipeID: {ID},  PublicationDate: {PublicationDate},  RecipeName: {RecipeName}, " +

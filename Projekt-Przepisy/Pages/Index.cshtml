@@ -27,7 +27,10 @@
             foreach (var recipe in Model.searchResults)
             {
                 @* TODO: zastąpić pełnoprawną prezentacją danych. *@
-                <div>@recipe.ToString()<br /></div>
+                <div>
+                    @recipe.ToString()<br />
+                    <a href=@recipe.LinkToPage>LINK</a>
+                </div>
             }
         }
     }

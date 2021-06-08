@@ -21,5 +21,8 @@ namespace Projekt_Przepisy.Models
         [Key]
         [MaxLength(450)]
         public string UserID { get; set; }
+
+        public FavouriteRecipe(int recipeID, string userID)
+            => (RecipeID, UserID) = (recipeID, userID);
     }
 }
