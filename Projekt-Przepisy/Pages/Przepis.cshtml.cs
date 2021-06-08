@@ -50,6 +50,8 @@ namespace Projekt_Przepisy.Pages
             string currentUserID = _userManager.GetUserId(this.User);
             positiveVote = _context.Ratings.Find(recipeID, currentUserID)?.IsPositive;
 
+            isAddedToFavourites = _context.Favourites.Find(przepis.ID, currentUserID) is not null;
+
             return Page();
         }
 
