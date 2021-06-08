@@ -18,8 +18,8 @@
             //             Zostawiam je jednak tutaj narazie, później trzeba będzie to zastąpić najpewniej sesją.
             <input type="hidden" id="recipeID" name="recipeID" value=@Model.przepis.ID />
             <input type="hidden" id="voteIsPositive" name="voteIsPositive" value=@Model.positiveVote.ToString() />
-            <button class="btn @Model.PlusVoteButtonClass" type="submit" name="value" value="+">+</button>
-            <button class="btn @Model.MinusVoteButtonClass" type="submit" name="value" value="-">-</button>
+            <button class="btn @Model.PlusVoteButtonClass" type="submit" name="value" value="+">👍</button>
+            <button class="btn @Model.MinusVoteButtonClass" type="submit" name="value" value="-">👎</button>
         }
     </form>
 </div>

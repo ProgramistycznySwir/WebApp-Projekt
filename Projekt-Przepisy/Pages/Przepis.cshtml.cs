@@ -53,28 +53,43 @@ namespace Projekt_Przepisy.Pages
 
         public IActionResult OnPostVote(string value, string recipeID, string voteIsPositive)
         {
-            przepis = _context.Recipes.Find(int.Parse(recipeID));
+            var recipeID_parsed = int.Parse(recipeID);
+            przepis = _context.Recipes.Find(recipeID_parsed);
+
             bool temp;
             positiveVote = bool.TryParse(voteIsPositive, out temp) ? temp : null;
 
-            bool? isPositive = value is "+" ? true : value is "-" ? false : null;
-            if (isPositive is null)
+            bool? voteIsPositive_parsed = value is "+" ? true : value is "-" ? false : null;
+            if (voteIsPositive_parsed is null)
                 return Page();
 
+            if (Vote(voteIsPositive_parsed))
+                RedirectToPage("/Login");
 
+            return Page();
+        }
+
+        /// <summary>
+        /// Sets vote on current recipe to specified value.
+        /// </summary>
+        /// <param name="voteIsPositive"></param>
+        /// <returns>True on success</returns>
+        public bool Vote(bool? voteIsPositive)
+        {
             string currentUserID = _userManager.GetUserId(this.User);
             if (currentUserID is null)
-                return RedirectToPage("/Login");
+                return false;
+
             // There is no vote yet.
-            if(positiveVote is null)
+            if (positiveVote is null)
             {
-                przepis.SummaryRating += isPositive is true ? 1 : -1;
-                _context.Ratings.Add(new(przepis.ID, currentUserID, (bool)isPositive));
+                przepis.SummaryRating += voteIsPositive is true ? 1 : -1;
+                _context.Ratings.Add(new(przepis.ID, currentUserID, (bool)voteIsPositive));
             }
             // User cancelled vote.
-            else if (positiveVote == isPositive)
+            else if (positiveVote == voteIsPositive)
             {
-                przepis.SummaryRating += isPositive is true ? -1 : 1;
+                przepis.SummaryRating += voteIsPositive is true ? -1 : 1;
                 // Remove rating from table.
                 _context.Ratings.Remove(
                     _context.Ratings.Find(przepis.ID, currentUserID));
@@ -82,10 +97,10 @@ namespace Projekt_Przepisy.Pages
             // User reversed vote.
             else
             {
-                przepis.SummaryRating += isPositive is true ? 2 : -2;
+                przepis.SummaryRating += voteIsPositive is true ? 2 : -2;
                 // Reverse rating.
                 var ratingToUpdate = _context.Ratings.Find(przepis.ID, currentUserID);
-                ratingToUpdate.IsPositive = isPositive.Value;
+                ratingToUpdate.IsPositive = voteIsPositive.Value;
                 _context.Ratings.Update(ratingToUpdate);
             }
 
@@ -95,8 +110,7 @@ namespace Projekt_Przepisy.Pages
 
             // Reasign propper value for rendering.
             positiveVote = _context.Ratings.Find(przepis.ID, currentUserID)?.IsPositive;
-
-            return Page();
+            return true;
         }
     }
 }
