@@ -2,7 +2,7 @@
 - [<>] jako Niezalogowany Użytkownik mam możliwość rejestracji w serwisie
 - [ ] jako Niezalogowany Użytkownik mam możliwość zresetowania hasła do własnego profilu; procedura odzyskiwania hasła powinna być bezpieczna (np. przez wysłanie linku aktywacyjnego na adres email)
 - [ ] jako Zalogowany Użytkownik mogę edytować moje dane
-- [ ] jako Niezalogowany Użytkownik mogę się zalogować i wylogować z serwisu
+- [<>] jako Niezalogowany Użytkownik mogę się zalogować i wylogować z serwisu
 
 
 2. [x] __(1 pkt -<|> Tworzenie i edytowanie przepisów)__
