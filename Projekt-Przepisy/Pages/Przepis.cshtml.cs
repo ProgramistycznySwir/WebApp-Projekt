@@ -24,8 +24,9 @@ namespace Projekt_Przepisy.Pages
         public Recipe przepis { get; private set; }
 
         public bool? positiveVote;
-        public string PlusVoteButtonClass => positiveVote is true ? "btn btn-success" : "btn btn-secondary";
-        public string MinusVoteButtonClass => positiveVote is false ? "btn btn-danger" : "btn btn-secondary";
+        // Dwie w³aœciwoœci pomagaj¹ce w wyœwietlaniu przycisków do g³osowania w odpowiednim kolorze.
+        public string PlusVoteButtonClass => positiveVote is true ? "btn-success" : "btn-secondary";
+        public string MinusVoteButtonClass => positiveVote is false ? "btn-danger" : "btn-secondary";
 
 
         public PrzepisModel(ILogger<IndexModel> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
@@ -54,10 +55,7 @@ namespace Projekt_Przepisy.Pages
         {
             przepis = _context.Recipes.Find(int.Parse(recipeID));
             bool temp;
-            if (bool.TryParse(voteIsPositive, out temp) is false)
-                positiveVote = null;
-            else
-                positiveVote = temp;
+            positiveVote = bool.TryParse(voteIsPositive, out temp) ? temp : null;
 
             bool? isPositive = value is "+" ? true : value is "-" ? false : null;
             if (isPositive is null)
