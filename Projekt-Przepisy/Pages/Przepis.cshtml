@@ -1,12 +1,24 @@
 ﻿@page
 @model Projekt_Przepisy.Pages.PrzepisModel
-    @{
-        {
-                <h3>
-                @Model.przepis.RecipeName.ToString()<br />
-                </h3>
+@{}
+<div>
+    <h3>
+        @Model.przepis.RecipeName.ToString()<br />
+    </h3>
 
-                @Model.przepis.IngredientsList.ToString()<br />
-                @Model.przepis.InstructionsText.ToString()<br />
-        } 
-    }
+    @Model.przepis.IngredientsList.ToString()<br />
+    @Model.przepis.InstructionsText.ToString()<br />
+
+    <div>Ocena: @Model.przepis.SummaryRating</div>
+    <form method="post" asp-page-handler="vote">
+        @{
+            // TODO_LAZY: Te 2 linijki mogą być bardzo łatwo nadużyte przez hackerów do wywoływania błędów na serwerze
+            //             ponieważ wystarczy, że zmienne zostaną nadpisane i wtedy może dojść do nieokreślonych zachowań.
+            //             Zostawiam je jednak tutaj narazie, później trzeba będzie to zastąpić najpewniej sesją.
+            <input type="hidden" id="recipeID" name="recipeID" value=@Model.przepis.ID />
+            <input type="hidden" id="voteIsPositive" name="voteIsPositive" value=@Model.positiveVote.ToString() />
+            <button class="btn btn-primary" type="submit" name="value" value="+">+</button>
+            <button class="btn btn-primary" type="submit" name="value" value="-">-</button>
+        }
+    </form>
+</div>
