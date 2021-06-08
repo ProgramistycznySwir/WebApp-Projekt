@@ -19,5 +19,8 @@ namespace Projekt_Przepisy.Models
 
         // RatingIsPositive
         public bool IsPositive { get; set; }
+
+        public RecipeRating(int recipeID, string userID, bool isPositive)
+            => (RecipeID, UserID, IsPositive) = (recipeID, userID, isPositive);
     }
 }

@@ -1,0 +1,27 @@
+﻿@page
+@model Projekt_Przepisy.Pages.UlubioneModel
+@{
+}
+
+<h1>
+    Twoje ulubione przepisy:
+</h1>
+
+@{
+    if (Model.favouriteRecipes.Count is 0)
+    {
+        <span>Nie masz jeszcze żadnych polubionych przepisów.</span>
+        <a href="/Index">Znajdź jakieś na stronie głównej!</a>
+    }
+    else
+    {
+        foreach (var recipe in Model.favouriteRecipes)
+        {
+            @* TODO: zastąpić pełnoprawną prezentacją danych. I można się rozejrzeć czy nie można zrobić tego bardziej SUCHYM *@
+            <div>
+                @recipe.ToString()<br />
+                <a href=@recipe.LinkToPage>LINK</a>
+            </div>
+        }
+    }
+}
