@@ -23,12 +23,12 @@ namespace Projekt_Przepisy.Pages
 
         public Recipe przepis { get; private set; }
 
-        public bool? positiveVote;
+        public bool? positiveVote { get; private set; }
         // Dwie w³aœciwoœci pomagaj¹ce w wyœwietlaniu przycisków do g³osowania w odpowiednim kolorze.
         public string PlusVoteButtonClass => positiveVote is true ? "btn-success" : "btn-secondary";
         public string MinusVoteButtonClass => positiveVote is false ? "btn-danger" : "btn-secondary";
 
-        public bool isAddedToFavourites;
+        public bool isAddedToFavourites { get; private set; }
 
 
         public PrzepisModel(ILogger<IndexModel> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)

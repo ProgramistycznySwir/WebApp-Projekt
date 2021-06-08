@@ -17,7 +17,7 @@ Dzisiaj mam zamiar zająć się systemem oceniania przepisów.
 6. [>] __(2 pkt -<|> Kategorie przepisów)__
 7. [X] __(1 pkt -<||> Głosowanie na przepisach)__
     > Chyba już jest w porządny sposób zrobione, szpetne po cholerze, ale działa.
-- 1. [ ] __(0,5 pkt -<|> Ranking)__
-    > Teraz będę się brał do implementowania tego.
+- 1. [X] __(0,5 pkt -<|> Ranking)__
+    > Jeszcze trzeba go koniecznie doszlifować, ale na razie jest wstępnie.
 8. [ ] __(1,5 pkt -<||> Przechowywanie plików użytkowników)__
 9. [>] __(1 pkt -<?> Styl)__

@@ -69,6 +69,6 @@ namespace Projekt_Przepisy.Models
 
         public override string ToString()
             => $"(RecipeID: {ID},  PublicationDate: {PublicationDate},  RecipeName: {RecipeName}, " +
-            $" UserID: {UserID},  SummaryRating: {SummaryRating})";
+            $" UserID: {UserID},  SummaryRating: {SummaryRating})";            
     }
 }

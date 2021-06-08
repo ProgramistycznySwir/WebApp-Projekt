@@ -19,14 +19,29 @@
         {
             if (string.IsNullOrWhiteSpace(Model.searchedPhrase) is false)
             {
+                // Render failed results.
                 <span>Nie znaleziono żadnych przepisów zawierających frazę "@Model.searchedPhrase"</span>
+            }
+            else
+            {
+                // Render top recipes.
+                if (Model.topRecipes is not null)
+                    foreach (var recipe in Model.topRecipes)
+                    {
+                        //TODO: zastąpić pełnoprawną prezentacją danych. I można się rozejrzeć czy nie można zrobić
+                        //       tego bardziej SUCHYM.
+                        <div>
+                            @recipe.ToString()<br />
+                            <a href=@recipe.LinkToPage>LINK</a>
+                        </div>
+                    }
             }
         }
         else
         {
             foreach (var recipe in Model.searchResults)
             {
-                @* TODO: zastąpić pełnoprawną prezentacją danych. *@
+                @* TODO: zastąpić pełnoprawną prezentacją danych. I można się rozejrzeć czy nie można zrobić tego bardziej SUCHYM *@
                 <div>
                     @recipe.ToString()<br />
                     <a href=@recipe.LinkToPage>LINK</a>
