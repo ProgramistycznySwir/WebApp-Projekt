@@ -19,6 +19,8 @@ namespace Projekt_Przepisy.Pages
         public const int SearchResultsMaxLenght = 10;
         public List<Recipe> searchResults { get; set; }
 
+        public List<Recipe> topRecipes { get; set; }
+
         readonly ILogger<IndexModel> _logger;
         readonly ApplicationDbContext _context;
         readonly UserManager<IdentityUser> _userManager;
@@ -32,7 +34,10 @@ namespace Projekt_Przepisy.Pages
 
         public void OnGet()
         {
-            
+            // This one is setted only once per visiting page soo i think it's futile to move it to it's own method.
+            topRecipes = _context.Recipes
+                .OrderByDescending(recipe => recipe.SummaryRating)
+                .Take(SearchResultsMaxLenght).ToList();
         }
 
         public IActionResult OnPost()
