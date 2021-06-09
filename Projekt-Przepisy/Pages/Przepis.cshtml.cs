@@ -15,6 +15,7 @@ using Projekt_Przepisy.Models;
 
 namespace Projekt_Przepisy.Pages
 {
+
     public class PrzepisModel : PageModel
     {
         readonly ILogger<IndexModel> _logger;
@@ -22,7 +23,7 @@ namespace Projekt_Przepisy.Pages
         readonly UserManager<IdentityUser> _userManager;
 
         public Recipe przepis { get; private set; }
-        
+
 
         public PrzepisModel(ILogger<IndexModel> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
