@@ -1,15 +1,41 @@
 ﻿@page
 @model Projekt_Przepisy.Pages.PrzepisModel
-    @{
-        
-                <h3>
-                @Model.przepis.RecipeName.ToString()<br />
-                </h3>
+@{}
+<div>
+    <h3>
+        @Model.przepis.RecipeName.ToString()<br />
+    </h3>
 
-                @Model.przepis.IngredientsList.ToString()<br />
-                @Model.przepis.InstructionsText.ToString()<br />
-               
-     }
-
- <a href="/ProfilUżytkownika?IDUżytkownika=@Model.przepis.UserID.ToString()"> @Model.przepis.UserID.ToString()</a><br />
-    
+    @Model.przepis.IngredientsList.ToString()<br />
+    @Model.przepis.InstructionsText.ToString()<br />
+    <br />
+    <a href="/ProfilUżytkownika?IDUżytkownika=@Model.przepis.UserID.ToString()"> @Model.przepis.UserID.ToString()</a><br />
+    <br />
+    <br />
+    <span>Ocena: @Model.przepis.SummaryRating</span>
+    <form method="post" asp-page-handler="vote">
+        @{
+            // TODO_LAZY: Te 2 linijki mogą być bardzo łatwo nadużyte przez hackerów do wywoływania błędów na serwerze
+            //             ponieważ wystarczy, że zmienne zostaną nadpisane i wtedy może dojść do nieokreślonych zachowań.
+            //             Zostawiam je jednak tutaj narazie, później trzeba będzie to zastąpić najpewniej sesją.
+            <input type="hidden" id="recipeID" name="recipeID" value=@Model.przepis.ID />
+            <input type="hidden" id="voteIsPositive" name="voteIsPositive" value=@Model.positiveVote.ToString() />
+            <button class="btn @Model.PlusVoteButtonClass" type="submit" name="value" value="+">👍</button>
+            <button class="btn @Model.MinusVoteButtonClass" type="submit" name="value" value="-">👎</button>
+        }
+    </form>
+    <form method="post" asp-page-handler="addToFavourites">
+        @{
+            <input type="hidden" id="recipeID" name="recipeID" value=@Model.przepis.ID />
+            <input type="hidden" id="voteIsPositive" name="voteIsPositive" value=@Model.positiveVote.ToString() />
+            if (Model.isAddedToFavourites)
+            {
+                <button class="btn btn-primary">Remove from favourites</button>
+            }
+            else
+            {
+                <button class="btn btn-primary">Add to favourites</button>
+            }
+        }
+    </form>
+</div>
