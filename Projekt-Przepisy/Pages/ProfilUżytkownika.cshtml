@@ -1,0 +1,27 @@
+﻿@page
+@model Projekt_Przepisy.Pages.ProfilUżytkownikaModel
+@{
+}
+<div>
+    <h3>
+        Lista przepisów użytkownika :
+    </h3>
+    @* I tutaj pobierana jest z modelu lista przepisów i wyświetlana. *@
+    @{
+        if (Model.userRecipes is null)
+        {
+            <span>Tutaj nie ma żadnych przepisów... Jeszcze!</span>
+        }
+        else
+        {
+            foreach (var recipe in Model.userRecipes)
+            {
+                <form asp-page-handler="deleteEntry" method="post">
+                    @* TODO: zastąpić pełnoprawną prezentacją danych (pomocne może być tr, th i td).
+                        TO_FRONT: Te tutaj komentarze możesz powyrzucać, na razie nie wiem czy będę coś z nimi robił.*@
+                    <a href="/Przepis?ID=@recipe.ID.ToString()">@recipe.RecipeName.ToString()</a>
+                </form>
+            }
+        }
+    }
+</div>

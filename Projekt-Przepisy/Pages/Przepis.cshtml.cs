@@ -22,6 +22,7 @@ namespace Projekt_Przepisy.Pages
         readonly UserManager<IdentityUser> _userManager;
 
         public Recipe przepis { get; private set; }
+        
 
         public PrzepisModel(ILogger<IndexModel> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
@@ -33,7 +34,8 @@ namespace Projekt_Przepisy.Pages
        
         public void OnGet()
         {
-            int recipeID = Int16.Parse(Request.Query["ID"]); 
+            int recipeID = Int32.Parse(Request.Query["ID"]); 
+
 
             przepis = _context.Recipes
                .Where(recipe => recipe.ID == recipeID).First();
