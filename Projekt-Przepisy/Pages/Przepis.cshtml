@@ -8,7 +8,9 @@
 
     @Model.przepis.IngredientsList.ToString()<br />
     @Model.przepis.InstructionsText.ToString()<br />
-
+    <br />
+    <a href="/ProfilUżytkownika?IDUżytkownika=@Model.przepis.UserID.ToString()"> @Model.przepis.UserID.ToString()</a><br />
+    <br />
     <br />
     <span>Ocena: @Model.przepis.SummaryRating</span>
     <form method="post" asp-page-handler="vote">
@@ -37,6 +39,3 @@
         }
     </form>
 </div>
-
- <a href="/ProfilUżytkownika?IDUżytkownika=@Model.przepis.UserID.ToString()">Autor: @Model.przepis.UserID.ToString()</a><br />
-

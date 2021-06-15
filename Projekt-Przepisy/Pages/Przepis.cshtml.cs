@@ -25,12 +25,11 @@ namespace Projekt_Przepisy.Pages
         public Recipe przepis { get; private set; }
 
         public bool? positiveVote { get; private set; }
-        // Dwie właściwości pomagające w wyświetlaniu przycisków do głosowania w odpowiednim kolorze.
+        // Dwie w³aœciwoœci pomagaj¹ce w wyœwietlaniu przycisków do g³osowania w odpowiednim kolorze.
         public string PlusVoteButtonClass => positiveVote is true ? "btn-success" : "btn-secondary";
         public string MinusVoteButtonClass => positiveVote is false ? "btn-danger" : "btn-secondary";
 
         public bool isAddedToFavourites { get; private set; }
-
 
         public PrzepisModel(ILogger<IndexModel> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
@@ -60,7 +59,7 @@ namespace Projekt_Przepisy.Pages
         {
             // Retrieving pseudo-session data:
             string currentUserID = _userManager.GetUserId(this.User);
-            // TODO: Zaimplementowa� bardziej przyjazn� u�ytkownikowi implementacj� przekierowywania do zalogowania.
+            // TODO: Zaimplementowaæ bardziej przyjazn¹ u¿ytkownikowi implementacjê przekierowywania do zalogowania.
             if (currentUserID is null)
                 return RedirectToPage("/Index");
                 //return RedirectToPage("/Identity/Account/Login");
@@ -125,7 +124,7 @@ namespace Projekt_Przepisy.Pages
         {
             // Retrieving pseudo-session data:
             string currentUserID = _userManager.GetUserId(this.User);
-            // TODO: Zaimplementować bardziej przyjazną użytkownikowi implementację przekierowywania do zalogowania.
+            // TODO: Zaimplementowaæ bardziej przyjazn¹ u¿ytkownikowi implementacjê przekierowywania do zalogowania.
             if (currentUserID is null)
                 return RedirectToPage("/Index");
                 //return RedirectToPage("/Identity/Account/Login");

@@ -12,7 +12,6 @@ using Projekt_Przepisy.Models;
 
 namespace Projekt_Przepisy.Pages
 {
-    [Authorize]
     public class ProfilUżytkownikaModel : PageModel
     {
         ILogger<ProfilUżytkownikaModel> _logger;
