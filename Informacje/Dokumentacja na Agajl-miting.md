@@ -27,4 +27,5 @@ Dzisiaj mam zamiar zająć się systemem oceniania przepisów.
 Pytania do Pani X:
 - Jak w HTML'u sprawić by było SUCHO
     - Chodzi o wyświetlanie przepisów gdzie jest taki sam kod w 5 różnych miejscach.
+    > Widoki czosnkowe, partial-view, osadzanie template'ów
 - Kategorie
