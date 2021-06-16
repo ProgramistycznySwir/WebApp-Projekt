@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -40,6 +41,9 @@ namespace Projekt_Przepisy.Pages
         //[Required(ErrorMessage = "Przepis musi mieæ nazwê!")]
         //[StringLength(64, MinimumLength = 6, ErrorMessage = "Nazwa przepisu musi mieæ d³ugoœæ od 6 do 64.")]
         //public string recipeName { get; set; }
+        public string imageLink { get; set; }
+       
+
 
 
         readonly ILogger<IndexModel> _logger;
@@ -58,18 +62,52 @@ namespace Projekt_Przepisy.Pages
 
         }
 
-        public IActionResult OnPost()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("ID,AccessRights,DOB,FirstName,LastName,NRIC,Nationality,StaffIdentity")] Recipe recipe)
+        {
+            if (ModelState.IsValid)
+            {
+                var files = HttpContext.Request.Form.Files;
+                foreach (var Image in files)
+                {
+                    if (Image != null && Image.Length > 0)
+                    {
+
+                        var file = Image;
+                        var uploads = Path.Combine("uploads\\img\\employees" , Image.FileName);
+
+                        if (file.Length > 0)
+                        {
+                            var fileName = ContentDispositionHeaderValue.Parse
+                                (file.ContentDisposition).FileName.Trim('"');
+
+                            System.Console.WriteLine(fileName);
+                            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                            {
+                                await file.CopyToAsync(fileStream);
+                                recipe.ImageLink = file.FileName;
+                            }
+
+
+                        }
+                    }
+                }
+            }
+        }    
+
+                public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            Recipe newRecipe = new(_context,
+                Recipe newRecipe = new(_context,
                 recipeName: recipeName,
                 ingredientsList: ingredientsList,
                 instructionsText: instructionsText,
-                userID: _userManager.GetUserId(this.User)
+                userID: _userManager.GetUserId(this.User),
                 //TODO: Implement image links propperly
-                //imageLink: null
+                imageLink: null
                 );
             //TODO: Bardzo du¿o _context.SaveChanges(), ale nie chce mi siê myœleæ nad tym jak to obejœæ, a dzia³a :)
             _context.Recipes.Add(newRecipe);
