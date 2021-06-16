@@ -17,6 +17,16 @@ namespace Projekt_Przepisy.Models
         public int ID { get; set; }
         // CategoryName
         [MaxLength(64)]
+        // CategoryName has to be lowercase for better performance.
         public string Name { get; set; }
+
+        public int AssignedRecipesCount { get; set; }
+
+        public RecipeCategory() { }
+        public RecipeCategory(string categoryName = null)
+        {
+            Name = categoryName;
+            AssignedRecipesCount = 1;
+        }
     }
 }
