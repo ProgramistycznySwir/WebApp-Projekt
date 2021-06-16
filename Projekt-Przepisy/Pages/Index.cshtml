@@ -43,7 +43,7 @@
             {
                 <form asp-page-handler="deleteEntry" method="post">
                     <div class="media position-relative">
-                        <img src="..." class="mr-3" alt="...">
+                        <img src="~/images/kremówka.png" class="mr-3" width="200" height="200" alt="/wwwroot/images/kremówka.jpg">
                         <div class="media-body">
                             <h5 class="mt-0"> <a href="/Przepis?ID=@recipe.ID" class="stretched-link">@recipe.RecipeName</a></h5>
                             <p>@recipe.InstructionsText.Substring(0, Math.Min(recipe.InstructionsText.Length, 100))</p>
