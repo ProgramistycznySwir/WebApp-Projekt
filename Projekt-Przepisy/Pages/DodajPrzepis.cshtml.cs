@@ -32,6 +32,10 @@ namespace Projekt_Przepisy.Pages
         [Required(ErrorMessage = "Przepis musi mieæ informacje jak go wykonaæ!")]
         [StringLength(4000, MinimumLength = 32, ErrorMessage = "Instrukcje musz¹ mieæ wiêcej ni¿ 32 znaki i nie wiêcej ni¿ 4 tysi¹ce.")]
         public string instructionsText { get; set; }
+        [BindProperty]
+        [Display(Name = "Lista Kategorii")]
+        [StringLength(512, ErrorMessage = "Lista kategorii nie mo¿e byæ d³u¿sza ni¿ 512 znaków.")]
+        public string categoriesList { get; set; }
         //[Display(Name = "Przepis")]
         //[Required(ErrorMessage = "Przepis musi mieæ nazwê!")]
         //[StringLength(64, MinimumLength = 6, ErrorMessage = "Nazwa przepisu musi mieæ d³ugoœæ od 6 do 64.")]
@@ -67,19 +71,30 @@ namespace Projekt_Przepisy.Pages
                 //TODO: Implement image links propperly
                 //imageLink: null
                 );
-
-            //newRecipe.RecipeName = recipeName;
-            //newRecipe.IngredientsList = ingredientsList;
-            //newRecipe.InstructionsText = instructionsText;
-            //newRecipe.UserID = _userManager.GetUserId(this.User);
-            //TODO: Implement image links propperly
-            //newRecipe.ImageLink = null;
-
-            //var userID = _userManager.GetUserId(this.User);
+            //TODO: Bardzo du¿o _context.SaveChanges(), ale nie chce mi siê myœleæ nad tym jak to obejœæ, a dzia³a :)
             _context.Recipes.Add(newRecipe);
             _context.SaveChanges();
+            newRecipe = _context.Recipes.First(r => r.IngredientsList == ingredientsList);
 
-            //exampleFormControlFile1
+            foreach (var categoryName in categoriesList.Split(' ').Select(str => str.ToLower()))
+            {
+                var category = _context.Categories.FirstOrDefault(cat => cat.Name == categoryName);
+                if (category is null)
+                {
+                    _context.Categories.Add(new RecipeCategory(categoryName));
+                    _context.SaveChanges();
+                    category = _context.Categories.First(cat => cat.Name == categoryName);
+                }
+                else
+                {
+                    category.AssignedRecipesCount++;
+                    _context.Categories.Update(category);
+                }
+
+                var recipeAssignedCategory = new RecipeAssignedCategory(newRecipe.ID, category.ID);
+                _context.RecipeAssignedCategories.Add(recipeAssignedCategory);
+                _context.SaveChanges();
+            }
 
             return RedirectToPage("/Profil");
         }
