@@ -19,5 +19,8 @@ namespace Projekt_Przepisy.Models
 
         // <FK>
         public int CategoryID { get; set; }
+
+        public RecipeAssignedCategory(int recipeID, int categoryID)
+            => (RecipeID, CategoryID) = (recipeID, categoryID);
     }
 }

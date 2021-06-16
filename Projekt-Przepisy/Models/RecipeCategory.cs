@@ -18,5 +18,13 @@ namespace Projekt_Przepisy.Models
         // CategoryName
         [MaxLength(64)]
         public string Name { get; set; }
+
+        public int AssignedRecipesCount { get; set; }
+
+        //public RecipeCategory(string categoryName = null)
+        //{
+        //    Name = categoryName;
+        //    AssignedRecipesCount = 1;
+        //}
     }
 }
