@@ -1,0 +1,32 @@
+﻿@page
+@model Projekt_Przepisy.Pages.EdytujPrzepisModel
+@{}
+
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="recipeName"></label>
+        @*<textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>*@
+        <input type="text" asp-for="recipeName" class="form-control" rows="1" value="@Model.przepis.RecipeName.ToString()">
+        <span asp-validation-for="recipeName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ingredientsList"></label>
+        <input type="text" asp-for="ingredientsList" class="form-control" rows="5" value="@Model.przepis.IngredientsList.ToString()">
+        <span asp-validation-for="ingredientsList" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="instructionsText"></label>
+        <input type="text" asp-for="instructionsText" class="form-control" rows="10" value="@Model.przepis.InstructionsText.ToString()">
+        <span asp-validation-for="instructionsText" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="categoriesList"></label>
+        <input type="text" asp-for="categoriesList" class="form-control" rows="3" value="Wpisz kategorie oddzielające każdą spacją...">
+        <span asp-validation-for="categoriesList" class="text-danger" />
+    </div>
+
+
+    <button class="btn btn-primary" type="submit">Zatwierdź edycję</button>
+    <button type="button" onclick="location.href = '/Profil';" class="btn btn-primary">Anuluj Edytowanie</button>
+</form>
