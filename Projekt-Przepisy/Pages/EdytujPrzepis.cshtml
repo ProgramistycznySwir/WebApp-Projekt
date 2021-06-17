@@ -4,6 +4,7 @@
 
 
 <form method="post">
+    <input type="hidden" id="recipeID" name="recipeID" value=@Model.recipeID />
     <div class="form-group">
         <label asp-for="recipeName"></label>
         @*<textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>*@
@@ -22,7 +23,7 @@
     </div>
     <div class="form-group">
         <label asp-for="categoriesList"></label>
-        <input type="text" asp-for="categoriesList" class="form-control" rows="3" value="Wpisz kategorie oddzielające każdą spacją...">
+        <input type="text" asp-for="categoriesList" class="form-control" rows="3" value="@Model.categoriesList">
         <span asp-validation-for="categoriesList" class="text-danger" />
     </div>
 
