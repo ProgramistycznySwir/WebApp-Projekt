@@ -21,6 +21,7 @@
             </select>
             <br>
         </div>
+        <br>
     </form>
     @* TODO: Ulepszyć wyszukiwanie, obecnie jest bardzo podstawowe i sprawdza jedynie czy nazwa przepisu zawiera szukaną frazę *@
     @{
@@ -33,11 +34,13 @@
             }
             else
             {
+                <h3 class="text-left">Ulubione przepisy naszych użytkowników:</h3>
                 // Render top recipes.
                 if (Model.topRecipes is not null)
                     foreach (var recipe in Model.topRecipes)
                     {
                         <form asp-page-handler="deleteEntry" method="post">
+                            <br>
                             <div class="media position-relative">
                                 <img src="~/images/kremówka.png" class="mr-3" width="150" height="150" alt="/wwwroot/images/kremówka.jpg">
                                 <div class="media-body">
