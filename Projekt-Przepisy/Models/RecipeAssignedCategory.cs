@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Projekt_Przepisy.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,7 +21,13 @@ namespace Projekt_Przepisy.Models
         // <FK>
         public int CategoryID { get; set; }
 
-        public RecipeAssignedCategory(int recipeID, int categoryID)
-            => (RecipeID, CategoryID) = (recipeID, categoryID);
+        public RecipeAssignedCategory(ApplicationDbContext context, int recipeID, int categoryID)
+        {
+            RecipeID = recipeID;
+            CategoryID = categoryID;
+            ID = (byte)(from assignedCat in context.RecipeAssignedCategories
+                        where assignedCat.RecipeID == recipeID
+                        select assignedCat).Count();
+        }
     }
 }
