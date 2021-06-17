@@ -12,6 +12,14 @@
             aria-label="Search" />*@
         <input asp-for="searchedPhrase" type="search" id="form1" class="form-control" placeholder="Wyszukaj przepis..."
                aria-label="Search" />
+        <div>
+            Szukaj:
+            <select asp-for="searchMode">
+                <option value="recipe">Przepisu</option>
+                <option value="user">Użytkownika</option>
+                <option value="category">Kategorii</option>
+            </select>
+        </div>
     </form>
     @* TODO: Ulepszyć wyszukiwanie, obecnie jest bardzo podstawowe i sprawdza jedynie czy nazwa przepisu zawiera szukaną frazę *@
     @{
