@@ -32,3 +32,5 @@
     >Nie udało nam się tego kompletnie zrealizować.
 
 9. [?]  __(1 pkt -<?> Styl)__ Aplikacja powinna mieć estetyczny wygląd.
+
+![](GitPush.png)
