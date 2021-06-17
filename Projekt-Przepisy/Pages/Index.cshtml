@@ -19,7 +19,9 @@
                 <option value="user">Użytkownika</option>
                 <option value="category">Kategorii</option>
             </select>
+            <br>
         </div>
+        <br>
     </form>
     @* TODO: Ulepszyć wyszukiwanie, obecnie jest bardzo podstawowe i sprawdza jedynie czy nazwa przepisu zawiera szukaną frazę *@
     @{
@@ -32,16 +34,20 @@
             }
             else
             {
+                <h3 class="text-left">Ulubione przepisy naszych użytkowników:</h3>
                 // Render top recipes.
                 if (Model.topRecipes is not null)
                     foreach (var recipe in Model.topRecipes)
                     {
-                        //TODO: zastąpić pełnoprawną prezentacją danych. I można się rozejrzeć czy nie można zrobić
-                        //       tego bardziej SUCHYM.
-                        <div>
-                            @recipe.ToString()<br />
-                            <a href=@recipe.LinkToPage>LINK</a>
-                        </div>
+                        <form asp-page-handler="deleteEntry" method="post">
+                            <br>
+                            <div class="media position-relative">
+                                <img src="~/images/kremówka.png" class="mr-3" width="150" height="150" alt="/wwwroot/images/kremówka.jpg">
+                                <div class="media-body">
+                                    <h5 class="mt-0"> <a href="/Przepis?ID=@recipe.ID" class="stretched-link">@recipe.RecipeName</a></h5>
+                                </div>
+                            </div>
+                        </form>
                     }
             }
         }

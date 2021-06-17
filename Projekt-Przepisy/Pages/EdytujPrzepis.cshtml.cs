@@ -91,7 +91,8 @@ namespace Projekt_Przepisy.Pages
                                    where assignedCat.RecipeID == recipe.ID
                                    //orderby category.Name
                                    select assignedCat;
-            var inputCategoriesNames = categoriesList.ToLower().Split(' ').ToHashSet();
+            categoriesList = "";
+            var inputCategoriesNames = categoriesList.ToLower().Split(' ')?.ToHashSet();
             foreach (RecipeAssignedCategory assignedCategory in recipeCategories)
             {
                 RecipeCategory category = _context.Categories.Find(assignedCategory.CategoryID);

@@ -31,6 +31,8 @@ namespace Projekt_Przepisy.Pages
 
         public bool isAddedToFavourites { get; private set; }
 
+        public string categoriesList { get; private set; }
+
         public PrzepisModel(ILogger<IndexModel> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _logger = logger;
@@ -51,6 +53,12 @@ namespace Projekt_Przepisy.Pages
             positiveVote = _context.Ratings.Find(recipeID, currentUserID)?.IsPositive;
 
             isAddedToFavourites = _context.Favourites.Find(przepis.ID, currentUserID) is not null;
+
+            var temp = from category in _context.Categories
+                       join assignedCat in _context.RecipeAssignedCategories on category.ID equals assignedCat.CategoryID
+                       where assignedCat.RecipeID == przepis.ID
+                       select category;
+            categoriesList = string.Join(" ", temp);
 
             return Page();
         }
