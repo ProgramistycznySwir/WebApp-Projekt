@@ -78,7 +78,7 @@ namespace Projekt_Przepisy.Pages
             Recipe recipe = _context.Recipes.Find(recipeID);
             // Verify if someone is not forging html form.
             if (recipe.UserID != _userManager.GetUserId(this.User))
-                return RedirectToPage("/Index");
+                return RedirectToPage($"/Przepis_NotFound", new { id = recipeID });
 
             recipe.RecipeName = recipeName;
             recipe.IngredientsList = ingredientsList;
