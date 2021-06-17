@@ -17,11 +17,15 @@
     {
         foreach (var recipe in Model.favouriteRecipes)
         {
-            @* TODO: zastąpić pełnoprawną prezentacją danych. I można się rozejrzeć czy nie można zrobić tego bardziej SUCHYM *@
-            <div>
-                @recipe.ToString()<br />
-                <a href=@recipe.LinkToPage>LINK</a>
-            </div>
+            <form asp-page-handler="deleteEntry" method="post">
+                <div class="media position-relative">
+                    <img src="~/images/kremówka.png" class="mr-3" width="120" height="120" alt="/wwwroot/images/kremówka.jpg">
+                    <div class="media-body">
+                        <h5 class="mt-0"> <a href="/Przepis?ID=@recipe.ID" class="stretched-link">@recipe.RecipeName</a></h5>
+                        <p>@recipe.InstructionsText.Substring(0, Math.Min(recipe.InstructionsText.Length, 100))</p>
+                    </div>
+                </div>
+            </form>
         }
     }
 }

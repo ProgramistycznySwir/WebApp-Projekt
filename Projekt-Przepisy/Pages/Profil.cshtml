@@ -20,14 +20,14 @@
             {
                 <form asp-page-handler="deleteEntry" method="post">
                     <div class="media position-relative">
-                        <img src="..." class="mr-3" alt="...">
+                        <img src="~/images/kremówka.png" class="mr-3" width="120" height="120" alt="/wwwroot/images/kremówka.jpg">
                         <div class="media-body">
                             <h5 class="mt-0"> <a href="/Przepis?ID=@recipe.ID" class="stretched-link">@recipe.RecipeName</a></h5>
                             <p>@recipe.InstructionsText.Substring(0, Math.Min(recipe.InstructionsText.Length, 100))</p>
                         </div>
                     </div>
-                        <button type="button" onclick="location.href = '/EdytujPrzepis?ID=@recipe.ID';" class="btn btn-primary">Edytuj Przepis</button>
-                        <button type="button" onclick="location.href = '/UsunPrzepis?ID=@recipe.ID';" class="btn btn-danger">Usuń Przepis</button>
+                        <button type="button" onclick="location.href = '/EdytujPrzepis?ID=@recipe.ID';" class="btn btn-outline-primary">Edytuj Przepis</button>
+                        <button type="button" onclick="location.href = '/UsunPrzepis?ID=@recipe.ID';" class="btn btn-outline-danger">Usuń Przepis</button>
               </form>
             }
         }
