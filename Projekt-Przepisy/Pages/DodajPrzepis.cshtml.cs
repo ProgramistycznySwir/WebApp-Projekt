@@ -62,21 +62,20 @@ namespace Projekt_Przepisy.Pages
 
         }
 
-                public  IActionResult OnPost()
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-                Recipe newRecipe = new(_context,
+            Recipe newRecipe = new(_context,
                 recipeName: recipeName,
                 ingredientsList: ingredientsList,
                 instructionsText: instructionsText,
                 userID: _userManager.GetUserId(this.User),
                 //TODO: Implement image links propperly
                 imageLink: imageLink
-
                 );
-            //TODO: Bardzo du�o _context.SaveChanges(), ale nie chce mi si� my�le� nad tym jak to obej��, a dzia�a :)
+            //TODO: Bardzo dużo _context.SaveChanges(), ale nie chce mi się myśleć nad tym jak to obejść, a działa :)
             _context.Recipes.Add(newRecipe);
             _context.SaveChanges();
             newRecipe = _context.Recipes.First(r => r.IngredientsList == ingredientsList);
@@ -90,6 +89,7 @@ namespace Projekt_Przepisy.Pages
                 if (category is null)
                 {
                     _context.Categories.Add(new RecipeCategory(categoryName));
+                    // Position new category in db for getting propper primary key from it.
                     _context.SaveChanges();
                     category = _context.Categories.First(cat => cat.Name == categoryName);
                 }
