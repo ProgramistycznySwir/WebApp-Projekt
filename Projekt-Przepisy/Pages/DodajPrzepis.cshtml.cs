@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,27 +20,30 @@ namespace Projekt_Przepisy.Pages
     {
         [BindProperty]
         [Display(Name = "Nazwa dania")]
-        [Required(ErrorMessage = "Przepis musi mieæ nazwê!")]
-        [StringLength(64, MinimumLength= 6, ErrorMessage= "Nazwa przepisu musi mieæ d³ugoœæ od 6 do 64 znaków.")]
+        [Required(ErrorMessage = "Przepis musi mieï¿½ nazwï¿½!")]
+        [StringLength(64, MinimumLength= 6, ErrorMessage= "Nazwa przepisu musi mieï¿½ dï¿½ugoï¿½ï¿½ od 6 do 64 znakï¿½w.")]
         public string recipeName { get; set; }
         [BindProperty]
-        [Display(Name = "Sk³adniki")]
-        [Required(ErrorMessage = "Przepis musi mieæ listê sk³adników!")]
-        [StringLength(1024, MinimumLength = 6, ErrorMessage = "Nazwa przepisu musi mieæ d³ugoœæ od 6 do 1000 znaków.")]
+        [Display(Name = "Skï¿½adniki")]
+        [Required(ErrorMessage = "Przepis musi mieï¿½ listï¿½ skï¿½adnikï¿½w!")]
+        [StringLength(1024, MinimumLength = 6, ErrorMessage = "Nazwa przepisu musi mieï¿½ dï¿½ugoï¿½ï¿½ od 6 do 1000 znakï¿½w.")]
         public string ingredientsList { get; set; }
         [BindProperty]
         [Display(Name = "Przepis")]
-        [Required(ErrorMessage = "Przepis musi mieæ informacje jak go wykonaæ!")]
-        [StringLength(4000, MinimumLength = 32, ErrorMessage = "Instrukcje musz¹ mieæ wiêcej ni¿ 32 znaki i nie wiêcej ni¿ 4 tysi¹ce.")]
+        [Required(ErrorMessage = "Przepis musi mieï¿½ informacje jak go wykonaï¿½!")]
+        [StringLength(4000, MinimumLength = 32, ErrorMessage = "Instrukcje muszï¿½ mieï¿½ wiï¿½cej niï¿½ 32 znaki i nie wiï¿½cej niï¿½ 4 tysiï¿½ce.")]
         public string instructionsText { get; set; }
         [BindProperty]
         [Display(Name = "Lista Kategorii")]
-        [StringLength(512, ErrorMessage = "Lista kategorii nie mo¿e byæ d³u¿sza ni¿ 512 znaków.")]
+        [StringLength(512, ErrorMessage = "Lista kategorii nie moï¿½e byï¿½ dï¿½uï¿½sza niï¿½ 512 znakï¿½w.")]
         public string categoriesList { get; set; }
         //[Display(Name = "Przepis")]
-        //[Required(ErrorMessage = "Przepis musi mieæ nazwê!")]
-        //[StringLength(64, MinimumLength = 6, ErrorMessage = "Nazwa przepisu musi mieæ d³ugoœæ od 6 do 64.")]
+        //[Required(ErrorMessage = "Przepis musi mieï¿½ nazwï¿½!")]
+        //[StringLength(64, MinimumLength = 6, ErrorMessage = "Nazwa przepisu musi mieï¿½ dï¿½ugoï¿½ï¿½ od 6 do 64.")]
         //public string recipeName { get; set; }
+        public string imageLink { get; set; }
+       
+
 
 
         readonly ILogger<IndexModel> _logger;
@@ -58,24 +62,60 @@ namespace Projekt_Przepisy.Pages
 
         }
 
-        public IActionResult OnPost()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("ID,AccessRights,DOB,FirstName,LastName,NRIC,Nationality,StaffIdentity")] Recipe recipe)
+        {
+            if (ModelState.IsValid)
+            {
+                var files = HttpContext.Request.Form.Files;
+                foreach (var Image in files)
+                {
+                    if (Image != null && Image.Length > 0)
+                    {
+
+                        var file = Image;
+                        var uploads = Path.Combine("uploads\\img\\employees" , Image.FileName);
+
+                        if (file.Length > 0)
+                        {
+                            var fileName = ContentDispositionHeaderValue.Parse
+                                (file.ContentDisposition).FileName.Trim('"');
+
+                            System.Console.WriteLine(fileName);
+                            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                            {
+                                await file.CopyToAsync(fileStream);
+                                recipe.ImageLink = file.FileName;
+                            }
+
+
+                        }
+                    }
+                }
+            }
+        }    
+
+                public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            Recipe newRecipe = new(_context,
+                Recipe newRecipe = new(_context,
                 recipeName: recipeName,
                 ingredientsList: ingredientsList,
                 instructionsText: instructionsText,
-                userID: _userManager.GetUserId(this.User)
+                userID: _userManager.GetUserId(this.User),
                 //TODO: Implement image links propperly
-                //imageLink: null
+                imageLink: null
                 );
-            //TODO: Bardzo du¿o _context.SaveChanges(), ale nie chce mi siê myœleæ nad tym jak to obejœæ, a dzia³a :)
+            //TODO: Bardzo duï¿½o _context.SaveChanges(), ale nie chce mi siï¿½ myï¿½leï¿½ nad tym jak to obejï¿½ï¿½, a dziaï¿½a :)
             _context.Recipes.Add(newRecipe);
             _context.SaveChanges();
             newRecipe = _context.Recipes.First(r => r.IngredientsList == ingredientsList);
 
+            if(categoriesList is null)
+                return RedirectToPage("/Profil");
             foreach (var categoryName in categoriesList.Split(' ').Select(str => str.ToLower()))
             {
                 var category = _context.Categories.FirstOrDefault(cat => cat.Name == categoryName);
@@ -91,7 +131,7 @@ namespace Projekt_Przepisy.Pages
                     _context.Categories.Update(category);
                 }
 
-                var recipeAssignedCategory = new RecipeAssignedCategory(newRecipe.ID, category.ID);
+                var recipeAssignedCategory = new RecipeAssignedCategory(_context, newRecipe.ID, category.ID);
                 _context.RecipeAssignedCategories.Add(recipeAssignedCategory);
                 _context.SaveChanges();
             }

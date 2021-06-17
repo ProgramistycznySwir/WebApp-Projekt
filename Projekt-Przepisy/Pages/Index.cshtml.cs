@@ -6,8 +6,10 @@ using Projekt_Przepisy.Data;
 using Projekt_Przepisy.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace Projekt_Przepisy.Pages
 {
@@ -15,6 +17,8 @@ namespace Projekt_Przepisy.Pages
     {
         [BindProperty]
         public string searchedPhrase { get; set; }
+        [BindProperty]
+        public string searchMode { get; set; }
 
         public const int SearchResultsMaxLenght = 10;
         public List<Recipe> searchResults { get; set; }
@@ -46,10 +50,23 @@ namespace Projekt_Przepisy.Pages
                 return Page();
 
             // TODO: Zaimplementować lepsze wyszukiwanie!
-            searchResults = _context.Recipes
-                .Where(recipe => recipe.RecipeName.Contains(searchedPhrase))
-                .OrderByDescending(recipe => recipe.PublicationDate)
-                .Take(SearchResultsMaxLenght).ToList();
+            searchResults = (searchMode switch
+            {
+                "recipe" => from recipe in _context.Recipes
+                            where recipe.RecipeName.Contains(searchedPhrase)
+                            select recipe,
+                "user" => from recipe in _context.Recipes
+                          join user in _context.Users on recipe.UserID equals user.Id
+                          where user.UserName.Contains(searchedPhrase)
+                          select recipe,
+                "category" => from recipe in _context.Recipes
+                              join assignedCat in _context.RecipeAssignedCategories on recipe.ID equals assignedCat.RecipeID
+                              join category in _context.Categories on assignedCat.CategoryID equals category.ID
+                              where category.Name.Contains(searchedPhrase)
+                              select recipe,
+                _ => null
+            })?.OrderByDescending(recipe => recipe.PublicationDate)
+                ?.Take(SearchResultsMaxLenght)?.ToList();
 
             return Page();
         }
