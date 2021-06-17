@@ -2,8 +2,8 @@
 
 ### Wybrany temat: "Przepisy"
 ### Skład zespołu:
-- Łukasz Litwiński,
-- Daniel Pietrzeniuk.
+- Łukasz Litwiński (lead designer),
+- Daniel Pietrzeniuk (lead programmer).
 
 ### Wymagania sprzętowe:
 - RAM: 1GB (sam profiler wskazuje 100MB),
