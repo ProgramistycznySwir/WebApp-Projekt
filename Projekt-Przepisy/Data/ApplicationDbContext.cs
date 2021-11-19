@@ -67,6 +67,14 @@ namespace Projekt_Przepisy.Data
                     .HasMany<Recipe>()
                     .WithOne()
                     .HasForeignKey(p => p.UserID);
+
+            builder.Entity<RecipeImage>()
+                    .HasKey(p => new { p.RecipeID, p.ImageID })
+                    .HasName("Images");
+            builder.Entity<Recipe>()
+                    .HasMany<RecipeImage>()
+                    .WithOne()
+                    .HasForeignKey(p => p.RecipeID);
         }
     }
 }
