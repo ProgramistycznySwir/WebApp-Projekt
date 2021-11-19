@@ -18,12 +18,13 @@ namespace Projekt_Przepisy.Models
         // <FK>
         [MaxLength(450)]
         public string UserID { get; set; }
+        public ICollection<RecipeAuthor> Authors { get; set; }
 
         [MaxLength(64, ErrorMessage = "Recipe name cannot be longer than 64 characters.")]
         [Required]
         public string RecipeName { get; set; }
         [Required]
-        public string IngredientsList { get; set; }
+        public ICollection<RecipeIngredient> IngredientsList { get; set; }
         [Required]
         public string InstructionsText { get; set; }
         [Url]
@@ -46,15 +47,37 @@ namespace Projekt_Przepisy.Models
         //    SummaryRating = 0;
         //}
 
+        // public Recipe(Data.ApplicationDbContext applicationDb, string userID, IEnumerable<AppUser> authors, string recipeName,
+        //     ICollection<RecipeIngredient> ingredientsList, string instructionsText, string imageLink= null)
+        // {
+        //     //ID = applicationDb.Recipes.Count();
+
+        //     //Recipe();
+        //     UserID = userID;
+        //     Authors ??= new List<RecipeAuthor>();
+        //     foreach (AppUser author in authors)
+        //         Authors.Add(new RecipeAuthor{ RecipeID=, AuthorID=author.Id});
+        //     RecipeName = recipeName;
+        //     // TODO: Make it copy to list, not just assignment.
+        //     IngredientsList = ingredientsList;
+        //     InstructionsText = instructionsText;
+        //     ImageLink = imageLink;
+
+        //     PublicationDate = DateTime.Now;
+        //     SummaryRating = 0;
+        // }
+
         public Recipe(Data.ApplicationDbContext applicationDb, string userID, string recipeName,
-            string ingredientsList, string instructionsText, string imageLink= null)
+            string instructionsText, string imageLink= null)
         {
             //ID = applicationDb.Recipes.Count();
 
             //Recipe();
             UserID = userID;
+            Authors ??= new List<RecipeAuthor>();
             RecipeName = recipeName;
-            IngredientsList = ingredientsList;
+            // TODO: Make it copy to list, not just assignment.
+            IngredientsList ??= new List<RecipeIngredient>();
             InstructionsText = instructionsText;
             ImageLink = imageLink;
 
@@ -69,6 +92,6 @@ namespace Projekt_Przepisy.Models
 
         public override string ToString()
             => $"(RecipeID: {ID},  PublicationDate: {PublicationDate},  RecipeName: {RecipeName}, " +
-            $" UserID: {UserID},  SummaryRating: {SummaryRating})";            
+            $" Authors: {{{string.Join(", ", Authors)}}},  SummaryRating: {SummaryRating})";
     }
 }

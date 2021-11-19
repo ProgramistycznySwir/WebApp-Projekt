@@ -81,7 +81,9 @@ namespace Projekt_Przepisy.Pages
                 return RedirectToPage($"/Przepis_NotFound", new { id = recipeID });
 
             recipe.RecipeName = recipeName;
-            recipe.IngredientsList = ingredientsList;
+            // recipe.IngredientsList = ingredientsList.Split(',').Select(item => new Ingredient{Name = item}).ToList();
+            // TODO: Implement
+            recipe.IngredientsList = new List<RecipeIngredient>();
             recipe.InstructionsText = instructionsText;
             // Apply changes.
             _context.Recipes.Update(recipe);

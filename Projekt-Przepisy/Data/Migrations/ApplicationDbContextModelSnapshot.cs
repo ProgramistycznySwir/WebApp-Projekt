@@ -15,7 +15,7 @@ namespace Projekt_Przepisy.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.12")
+                .HasAnnotation("ProductVersion", "3.1.21")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -82,6 +82,10 @@ namespace Projekt_Przepisy.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -133,6 +137,8 @@ namespace Projekt_Przepisy.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -233,6 +239,24 @@ namespace Projekt_Przepisy.Data.Migrations
                     b.ToTable("Favourites");
                 });
 
+            modelBuilder.Entity("Projekt_Przepisy.Models.Ingredient", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Ingredients");
+                });
+
             modelBuilder.Entity("Projekt_Przepisy.Models.Recipe", b =>
                 {
                     b.Property<int>("ID")
@@ -240,11 +264,13 @@ namespace Projekt_Przepisy.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ImageLink")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("IngredientsList")
-                        .IsRequired()
+                    b.Property<string>("AppUserId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ImageLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InstructionsText")
@@ -268,6 +294,12 @@ namespace Projekt_Przepisy.Data.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("AppUserId1");
+
+                    b.HasIndex("UserID");
+
                     b.ToTable("Recipes");
                 });
 
@@ -285,6 +317,32 @@ namespace Projekt_Przepisy.Data.Migrations
                     b.HasKey("RecipeID", "ID");
 
                     b.ToTable("RecipeAssignedCategories");
+                });
+
+            modelBuilder.Entity("Projekt_Przepisy.Models.RecipeAuthor", b =>
+                {
+                    b.Property<int>("RecipeID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AuthorID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AuthorId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("RecipeID1")
+                        .HasColumnType("int");
+
+                    b.HasKey("RecipeID", "AuthorID")
+                        .HasName("Authors");
+
+                    b.HasIndex("AuthorID");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("RecipeID1");
+
+                    b.ToTable("RecipeAuthor");
                 });
 
             modelBuilder.Entity("Projekt_Przepisy.Models.RecipeCategory", b =>
@@ -306,6 +364,35 @@ namespace Projekt_Przepisy.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Projekt_Przepisy.Models.RecipeIngredient", b =>
+                {
+                    b.Property<int>("RecipeID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IngredientID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IngredientID1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RecipeID1")
+                        .HasColumnType("int");
+
+                    b.Property<float>("amount")
+                        .HasColumnType("real");
+
+                    b.HasKey("RecipeID", "IngredientID")
+                        .HasName("IngredientList");
+
+                    b.HasIndex("IngredientID");
+
+                    b.HasIndex("IngredientID1");
+
+                    b.HasIndex("RecipeID1");
+
+                    b.ToTable("RecipeIngredients");
+                });
+
             modelBuilder.Entity("Projekt_Przepisy.Models.RecipeRating", b =>
                 {
                     b.Property<int>("RecipeID")
@@ -321,6 +408,18 @@ namespace Projekt_Przepisy.Data.Migrations
                     b.HasKey("RecipeID", "UserID");
 
                     b.ToTable("Ratings");
+                });
+
+            modelBuilder.Entity("Projekt_Przepisy.Models.AppUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasDiscriminator().HasValue("AppUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -372,6 +471,74 @@ namespace Projekt_Przepisy.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Projekt_Przepisy.Models.Recipe", b =>
+                {
+                    b.HasOne("Projekt_Przepisy.Models.AppUser", null)
+                        .WithMany("FavouriteRecipes")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("Projekt_Przepisy.Models.AppUser", null)
+                        .WithMany("Recipes")
+                        .HasForeignKey("AppUserId1");
+
+                    b.HasOne("Projekt_Przepisy.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserID");
+                });
+
+            modelBuilder.Entity("Projekt_Przepisy.Models.RecipeAuthor", b =>
+                {
+                    b.HasOne("Projekt_Przepisy.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Projekt_Przepisy.Models.AppUser", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId");
+
+                    b.HasOne("Projekt_Przepisy.Models.Recipe", null)
+                        .WithMany()
+                        .HasForeignKey("RecipeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Projekt_Przepisy.Models.Recipe", "Recipe")
+                        .WithMany("Authors")
+                        .HasForeignKey("RecipeID1");
+                });
+
+            modelBuilder.Entity("Projekt_Przepisy.Models.RecipeIngredient", b =>
+                {
+                    b.HasOne("Projekt_Przepisy.Models.Ingredient", null)
+                        .WithMany()
+                        .HasForeignKey("IngredientID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Projekt_Przepisy.Models.Ingredient", "Ingredient")
+                        .WithMany("Recipes")
+                        .HasForeignKey("IngredientID1");
+
+                    b.HasOne("Projekt_Przepisy.Models.Recipe", null)
+                        .WithMany()
+                        .HasForeignKey("RecipeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Projekt_Przepisy.Models.Recipe", "Recipe")
+                        .WithMany("IngredientsList")
+                        .HasForeignKey("RecipeID1");
+                });
+
+            modelBuilder.Entity("Projekt_Przepisy.Models.AppUser", b =>
+                {
+                    b.HasOne("Projekt_Przepisy.Models.AppUser", null)
+                        .WithMany("FavouriteAuthors")
+                        .HasForeignKey("AppUserId");
                 });
 #pragma warning restore 612, 618
         }

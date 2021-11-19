@@ -21,6 +21,9 @@ namespace Projekt_Przepisy.Data
         public DbSet<RecipeCategory> Categories { get; set; }
         public DbSet<RecipeRating> Ratings { get; set; }
 
+        public DbSet<Ingredient> Ingredients { get; set; }
+        public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -37,6 +40,33 @@ namespace Projekt_Przepisy.Data
             //builder.Entity<RecipeRating>().HasKey("RecipeID", "UserID");
             builder.Entity<RecipeRating>().HasKey(p => new { p.RecipeID, p.UserID });
 
+            builder.Entity<RecipeIngredient>()
+                    .HasKey(p => new { p.RecipeID, p.IngredientID })
+                    .HasName("IngredientList");
+            builder.Entity<Recipe>()
+                    .HasMany<RecipeIngredient>()
+                    .WithOne()
+                    .HasForeignKey(p => p.RecipeID);
+            builder.Entity<Ingredient>()
+                    .HasMany<RecipeIngredient>()
+                    .WithOne()
+                    .HasForeignKey(p => p.IngredientID);
+
+            builder.Entity<RecipeAuthor>()
+                    .HasKey(p => new { p.RecipeID, p.AuthorID })
+                    .HasName("Authors");
+            builder.Entity<RecipeAuthor>()
+                    .HasOne<AppUser>()
+                    .WithMany()
+                    .HasForeignKey(p => p.AuthorID);
+            builder.Entity<Recipe>()
+                    .HasMany<RecipeAuthor>()
+                    .WithOne()
+                    .HasForeignKey(p => p.RecipeID);
+            builder.Entity<AppUser>()
+                    .HasMany<Recipe>()
+                    .WithOne()
+                    .HasForeignKey(p => p.UserID);
         }
     }
 }

@@ -69,16 +69,24 @@ namespace Projekt_Przepisy.Pages
 
             Recipe newRecipe = new(_context,
                 recipeName: recipeName,
-                ingredientsList: ingredientsList,
+                // ingredientsList: ingredientsList,
+                // ingredientsList: ingredientsList.Split(',').Select(name => new RecipeIngredient{Name = name}).ToList(),
+                // TODO: Implement.
+                // ingredientsList: new List<RecipeIngredient>(),
                 instructionsText: instructionsText,
                 userID: _userManager.GetUserId(this.User),
+                // authors: new List<AppUser>() { _userManager.GetUserAsync(this.User).Result },
+                // TODO: Implement recipe authors properly
+                // authors: new List<AppUser>(),
                 //TODO: Implement image links propperly
                 imageLink: imageLink
                 );
             //TODO: Bardzo dużo _context.SaveChanges(), ale nie chce mi się myśleć nad tym jak to obejść, a działa :)
             _context.Recipes.Add(newRecipe);
             _context.SaveChanges();
-            newRecipe = _context.Recipes.First(r => r.IngredientsList == ingredientsList);
+            // TODO: Wtf is this, fix it
+            //  What is does it searches recipe by it's ingredients list, aka there could be recipe with same ingredient lists.
+            newRecipe = _context.Recipes.First(r => r.InstructionsText == instructionsText);
 
 
             if(categoriesList is null)

@@ -13,6 +13,7 @@ namespace Projekt_Przepisy.Models
     {
         [Key]
         public int RecipeID { get; set; }
+        // public Recipe Recipe { get; set; }
 
         // <FK>
         /// <summary>
@@ -21,6 +22,7 @@ namespace Projekt_Przepisy.Models
         [Key]
         [MaxLength(450)]
         public string UserID { get; set; }
+        // public AppUser User { get; set; }
 
         public FavouriteRecipe(int recipeID, string userID)
             => (RecipeID, UserID) = (recipeID, userID);
